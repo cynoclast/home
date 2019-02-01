@@ -1,0 +1,11 @@
+[user]
+	email = cynoclast@gmail.com
+	name = cynoclast
+[push]
+	default = simple
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+[core]
+	autocrlf = input
+
