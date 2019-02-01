@@ -180,7 +180,7 @@ case "`uname`" in
 
             local currentLocation="$BOLD_BLUE\w"
             local gitBranchColor="\[\033[0;37m\]"
-            local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\(MASTER\)/`'
+            local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
             local historyBlock="$BOLD_BLUE[ $LIGHT_GRAY\! $BOLD_BLUE]"
             local userAndHost="$GREEN\u$LIGHT_GRAY@$GREEN\h"
             local promptTail="\[\033[1;37m\]$"
