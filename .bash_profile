@@ -176,13 +176,15 @@ case "`uname`" in
             local RED="\[\033[0;31m\]"
             local BOLD_RED="\[\033[01;31m\]"
             local GREEN="\[\033[0;32m\]"
+            local TEAL="\[\033[0;36m\]"
+
             local NO_COLOR="\[\033[0m\]"
 
             local currentLocation="$BOLD_BLUE\w"
             local gitBranchColor="\[\033[0;37m\]"
             local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
             local historyBlock="$BOLD_BLUE[ $LIGHT_GRAY\! $BOLD_BLUE]"
-            local userAndHost="$GREEN\u$LIGHT_GRAY@$GREEN\h"
+            local userAndHost="$TEAL\u$LIGHT_GRAY@$GREEN\h"
             local promptTail="\[\033[1;37m\]$"
             local lastColor="\[\033[00m\]"
 
