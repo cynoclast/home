@@ -73,6 +73,12 @@ alias mroe="less"
 case "`uname`" in
 
     CYGWIN*)
+
+        #Just windows things.
+        shortcutfix() {
+          find . -name "*.exe - Shortcut.lnk" | while read -r file; do mv "${file}" "$(echo ${file} | sed 's/.exe\ -\ Shortcut.lnk/.lnk/')"; done
+        }
+
         # Cygwin specific stuff goes here
         JAVA_HOME=`cygpath "${JAVA_HOME}"` 2>/dev/null 2>&2
 
@@ -152,72 +158,42 @@ case "`uname`" in
 
     Darwin*)
 
-        export M2_HOME=/Users/tkirk/apps/maven
+        jhome () {
+         export JAVA_HOME=`/usr/libexec/java_home $@`
+         echo "JAVA_HOME:" ${JAVA_HOME}
+         java -version
+        }
 
-        export PATH=$PATH:/Users/tkirk/bin:$M2_HOME/bin:$JMETER_HOME/bin:$MEMCACHED_HOME/bin:$JAVA_HOME/bin:/Users/tkirk/src/phylord/tools/triceracop
+        if [[ -z ${JAVA_HOME+x} ]]; then : ; else export PATH=$PATH:$JAVA_HOME/bin; fi
+        if [[ -z ${M2_HOME+x} ]]; then : ; else export PATH=$PATH:$M2_HOME/bin; fi
+
+        [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
 
         function color_my_prompt {
 
-            local    BLUE="\[\033[1;34m\]"
-            local    LIGHT_GRAY="\[\033[0;37m\]"
+            local BOLD_BLUE="\[\033[1;34m\]"
+            local LIGHT_GRAY="\[\033[0;37m\]"
+            local RED="\[\033[0;31m\]"
+            local BOLD_RED="\[\033[01;31m\]"
+            local GREEN="\[\033[0;32m\]"
+            local NO_COLOR="\[\033[0m\]"
 
-            historyBlock="${BLUE}[ ${LIGHT_GRAY}\!${BLUE} ]"
+            local currentLocation="$BOLD_BLUE\w"
+            local gitBranchColor="\[\033[0;37m\]"
+            local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\(MASTER\)/`'
+            local historyBlock="$BOLD_BLUE[ $LIGHT_GRAY\! $BOLD_BLUE]"
+            local userAndHost="$GREEN\u$LIGHT_GRAY@$GREEN\h"
+            local promptTail="\[\033[1;37m\]$"
+            local lastColor="\[\033[00m\]"
 
-
-            local __user_and_host="\[\033[01;32m\]\u@\h"
-            local __cur_location="\[\033[01;34m\]\w"
-            # local __git_branch_color="\[\033[31m\]"
-            local __git_branch_color="\[\033[0;37m\]"
-            #local __git_branch="\`ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`"
-            local __git_branch='`git branch 2> /dev/null | grep -e ^.* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-            # local __prompt_tail="\[\033[35m\]$"
-            local __prompt_tail="\[\033[1;37m\]$"
-            local __last_color="\[\033[00m\]"
-            # export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
-            export PS1="$__cur_location $__git_branch_color$__git_branch\n $historyBlock $__user_and_host $__prompt_tail$__last_color "
+            export PS1="$currentLocation $gitBranchColor$currentGitBranch\n $historyBlock $userAndHost $promptTail$NO_COLOR "
 
         }
         color_my_prompt
 esac
 
-###################################################
-# My implementation of a TODO thingy stolen from http://blog.jerodsanto.net/2010/12/minimally-awesome-todos/
-# Includes support to sync with subversion repository
-###################################################
-export TODO_FILE=~/.todo
-
-function todo {
-  if [ $# == "0" ]; then
-    cat "${TODO_FILE}";
-  else
-    svn up "${TODO_FILE}"
-    echo "â¢ $*" >> "${TODO_FILE}";
-    svn ci "${TODO_FILE}" -m "todo autoupdate"
-  fi
-}
-
-function todone {
-    svn up "${TODO_FILE}"
-    sed -i -e "/$*/d" "${TODO_FILE}";
-    svn ci "${TODO_FILE}" -m "todo autoupdate"
-}
-
-
-###################################################
-#  Functions
-###################################################
-
-shortcutfix() {
-  find . -name "*.exe - Shortcut.lnk" | while read -r file; do mv "${file}" "$(echo ${file} | sed 's/.exe\ -\ Shortcut.lnk/.lnk/')"; done
-}
-
-
-function alldo {
-   command=${@}
-   exec $command
-}
 #--------------------------------------------------
-#    Initializes informative and pretty prompts
+#    Initializes informative and pretty prompts (old)
 #--------------------------------------------------
 function setprompt {
 
@@ -318,47 +294,6 @@ histg() {
   fi
 }
 
-#--------------------------------------------------
-#    Look up a definition - beta
-#--------------------------------------------------
-
-define () {
-  lynx -dump "http://www.google.com/search?hl=en&q=define%3A+${1}&btnG=Google+Search" | grep -m 5 -w "*"  | sed 's/;/ -/g' | cut -d- -f5 > /tmp/templookup.txt
-              if [[ -s  /tmp/templookup.txt ]] ;then
-                  until ! read response
-                      do
-                      echo "${response}"
-                      done < /tmp/templookup.txt
-                  else
-                      echo "Sorry ${USER}, I can't find the term \"${1} \""
-              fi
-  rm -f /tmp/templookup.txt
-}
-#--------------------------------------------------
-#    Look up a definition - without writing to the disk - alpha
-#--------------------------------------------------
-
-define2 () {
-  outputOn=1
-
-  lynx -dump "http://www.google.com/search?hl=en&q=define%3A+${1}&btnG=Google+Search" | while read line; do
-    isDefinitionLine=$(echo ${line} | grep -q "\*")
-    isUrlLine=$(echo ${line} | grep -q "\[")
-
-
-    if [ ${isDefinitionLine} ]; then
-      outputOn=0
-    elif [ ${isUrlLine} ]; then
-      outputOn=1
-    fi
-
-    if [ ${outputOn} ]; then
-      echo "${line}"
-    fi
-  done
-
-}
-
 # This function defines a 'cd' replacement function capable of keeping,
 # displaying and accessing history of visited directories, up to 10 entries.
 # To use it, uncomment it, source this file and try 'cd --'.
@@ -417,15 +352,3 @@ cd_func () {
 
 alias cd='cd_func'
 
-jhome () {
- export JAVA_HOME=`/usr/libexec/java_home $@`
- echo "JAVA_HOME:" $JAVA_HOME
- java -version
-}
-
-
-#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-export GVM_DIR="/Users/tkirk/.gvm"
-[[ -s "/Users/tkirk/.gvm/bin/gvm-init.sh" ]] && source "/Users/tkirk/.gvm/bin/gvm-init.sh"
-
-export PATH="$PATH:/Applications/HP_Fortify/HP_Fortify_SCA_and_Apps_4.40/bin:/usr/local/squid_toolkit/"
