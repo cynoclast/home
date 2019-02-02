@@ -187,24 +187,39 @@ case "`uname`" in
         #
         function colorMyPrompt {
 
-            local BOLD_BLUE="\[\033[1;34m\]"
-            local LIGHT_GRAY="\[\033[0;37m\]"
-            local BOLD_LIGHT_GRAY="\[\033[1;37m\]"
             local RED="\[\033[0;31m\]"
-            local BOLD_RED="\[\033[01;31m\]"
+            local YELLOW="\[\033[0;33m\]"
             local GREEN="\[\033[0;32m\]"
             local TEAL="\[\033[0;36m\]"
+            local BLUE="\[\033[0;34m\]"
+            local PURPLE="\[\033[0;35m\]"
+            local LIGHT_GRAY="\[\033[0;37m\]"
+            local DARK_GRAY="\[\033[0;30m\]"
+
+            local BOLD_RED="\[\033[1;31m\]"
+            local BOLD_YELLOW="\[\033[1;33m\]"
+            local BOLD_GREEN="\[\033[1;32m\]"
+            local BOLD_TEAL="\[\033[1;36m\]"
+            local BOLD_BLUE="\[\033[1;34m\]"
+            local BOLD_PURPLE="\[\033[1;35m\]"
+            local BOLD_LIGHT_GRAY="\[\033[1;37m\]"
+            local BOLD_DARK_GRAY="\[\033[1;30m\]"
 
             local NO_COLOR="\[\033[0m\]"
 
-            local currentLocation="$BOLD_BLUE\w"
-            local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
-            local historyBlock="$BOLD_BLUE[ $LIGHT_GRAY\! $BOLD_BLUE]"
-            local userAndHost="$TEAL\u$LIGHT_GRAY@$GREEN\h"
-            local promptTail="$BOLD_LIGHT_GRAY$"
+            # escaped - not directly useful, but the correct number of backslashes are recorded here
+            # local YELLOW_BACKGROUND="\\\\\[\\\\\033[43m\\\\\]"
+            # local DARK_GREY_BACKGROUND="\\\\\[\\\\\033[40m\\\\\]"
 
-            # LIGHT_GRAY is overridden in the above currentGitBranch command above when on master
-            export PS1="$currentLocation $LIGHT_GRAY$currentGitBranch\n $historyBlock $userAndHost $promptTail$NO_COLOR "
+            local workingDirectory="$BOLD_YELLOW\w"
+            local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\/ | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
+            local historyBlock="$BOLD_RED[ $BOLD_LIGHT_GRAY\! $BOLD_RED]"
+            local timeBlock="$BOLD_DARK_GRAY\@"
+            local userAndHost="$BOLD_TEAL\u$BOLD_GREEN@$BOLD_BLUE\h"
+            local promptTail="$BOLD_LIGHT_GRAY\$"
+
+            # BOLD_LIGHT_GRAY is overridden in the above currentGitBranch command above when on master
+            export PS1="$workingDirectory $BOLD_LIGHT_GRAY$currentGitBranch $timeBlock\n $historyBlock $userAndHost $promptTail$NO_COLOR "
         }
         colorMyPrompt
 esac
