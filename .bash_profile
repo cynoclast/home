@@ -156,6 +156,7 @@ case "`uname`" in
       esac
   ;;
 
+    # OS X
     Darwin*)
 
         jhome () {
@@ -169,10 +170,26 @@ case "`uname`" in
 
         [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
 
-        function color_my_prompt {
+        # Makes a prompt that looks something like this:
+        #   ~/home
+        #   [ 317 ] tkirk@globule $
+        #
+        # And like this if you're on a git branch:
+        #   ~/home (test)
+        #   [ 317 ] tkirk@globule $
+        #
+        #   [ 317 ] <- is the command number of the current command
+        #
+        # The backslash-fest inline command below causes it to look like this if you're on master:
+        #   ~/home ((( MASTER )))
+        #   [ 318 ] tkirk@globule $
+        # The "((( MASTER )))" bit is also red, and bold.
+        #
+        function colorMyPrompt {
 
             local BOLD_BLUE="\[\033[1;34m\]"
             local LIGHT_GRAY="\[\033[0;37m\]"
+            local BOLD_LIGHT_GRAY="\[\033[1;37m\]"
             local RED="\[\033[0;31m\]"
             local BOLD_RED="\[\033[01;31m\]"
             local GREEN="\[\033[0;32m\]"
@@ -181,17 +198,15 @@ case "`uname`" in
             local NO_COLOR="\[\033[0m\]"
 
             local currentLocation="$BOLD_BLUE\w"
-            local gitBranchColor="\[\033[0;37m\]"
             local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ / | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
             local historyBlock="$BOLD_BLUE[ $LIGHT_GRAY\! $BOLD_BLUE]"
             local userAndHost="$TEAL\u$LIGHT_GRAY@$GREEN\h"
-            local promptTail="\[\033[1;37m\]$"
-            local lastColor="\[\033[00m\]"
+            local promptTail="$BOLD_LIGHT_GRAY$"
 
-            export PS1="$currentLocation $gitBranchColor$currentGitBranch\n $historyBlock $userAndHost $promptTail$NO_COLOR "
-
+            # LIGHT_GRAY is overridden in the above currentGitBranch command above when on master
+            export PS1="$currentLocation $LIGHT_GRAY$currentGitBranch\n $historyBlock $userAndHost $promptTail$NO_COLOR "
         }
-        color_my_prompt
+        colorMyPrompt
 esac
 
 #--------------------------------------------------
