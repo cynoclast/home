@@ -170,6 +170,8 @@ case "`uname`" in
 
         [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
 
+        complete -C '/usr/local/aws/bin/aws_completer' aws
+
         # Makes a prompt that looks something like this:
         #   ~/home
         #   [ 317 ] tkirk@globule $
