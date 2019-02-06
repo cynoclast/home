@@ -32,9 +32,6 @@ export HISTSIZE=100000
 # nearly nothing I work on has ever fit in the default of 64m, so embiggen this
 #export MAVEN_OPTS=-Xmx512m
 
-# I can vi, so use it for SVN commit messages
-export SVN_EDITOR=/usr/bin/vi
-
 ## Automatically pushd - then I can go to an old dir with cd - <tab> (pick no.)
 #setopt AUTOPUSHD           # this doesn't work in cygwin/bash....
 #export DIRSTACKSIZE=11     # stack size of eleven gives me a list with ten entries
