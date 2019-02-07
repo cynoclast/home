@@ -39,7 +39,7 @@ export HISTSIZE=100000
 ##############################################################
 #                      Aliases
 ##############################################################
-alias ~='cd /Users/tkirk'
+alias ~="cd /Users/`whoami`"
 alias ..='cd ..' >/dev/null
 alias ....='cd ../..'
 alias ......='cd ../../..'
@@ -51,11 +51,11 @@ alias lla='ls -hlaG'
 alias rebash='source ~/.bash_profile'
 alias ssh='ssh -q'
 alias screen='screen -DR'
-alias dynago='cd /Users/tkirk/apps/dynamo && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb'
+alias dynago="cd /Users/`whoami`/apps/dynamo && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb"
 #alias gimmae='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done'
 alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do git branch --track ${remote#origin/} $remote; done'
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
-alias splle='vi /Users/tkirk/Library/Spelling/LocalDictionary'
+alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
 
 #  misspellings
@@ -126,19 +126,6 @@ case "`uname`" in
 
       case "`uname -n`" in
 
-            tkirk)
-              # Linux specific stuff goes here
-              export JDK_HOME=~/apps/jdks/jdk
-              export JAVA_HOME=${JDK_HOME}
-
-              # this seems to make IntelliJ IDEA crash on startup so it's commented out:
-              # export AWT_TOOLKIT="MToolkit"
-
-              export PATH="${JAVA_HOME}/bin:$PATH:/home/tkirk/bin"
-              export CLASSPATH=/home/tkirk/apps/tomcat/common/lib/jsp-api.jar:/home/tkirk/apps/tomcat/common/lib/servlet-api.jar
-            ;;
-
-
             somehost*)
 
                 export PATH=$PATH:/home/tk37823/bin
@@ -171,17 +158,17 @@ case "`uname`" in
 
         # Makes a prompt that looks something like this:
         #   ~/home
-        #   [ 317 ] tkirk@globule $
+        #   [ 317 ] luser@globule $
         #
         # And like this if you're on a git branch:
         #   ~/home (test)
-        #   [ 317 ] tkirk@globule $
+        #   [ 317 ] luser@globule $
         #
         #   [ 317 ] <- is the command number of the current command
         #
         # The backslash-fest inline command below causes it to look like this if you're on master:
         #   ~/home ((( MASTER )))
-        #   [ 318 ] tkirk@globule $
+        #   [ 318 ] luser@globule $
         # The "((( MASTER )))" bit is also red, and bold.
         #
         function colorMyPrompt {
