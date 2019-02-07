@@ -57,6 +57,10 @@ alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do 
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
+# Use these to prevent host employer .gitconfig from contaminating personal repo
+alias ungit="mv ~/.gitconfig ~/.notgitconfig"
+alias regit="mv ~/.notgitconfig ~/.gitconfig"
+
 
 #  misspellings
 alias exti="exit"
