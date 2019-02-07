@@ -370,3 +370,5 @@ cd_func () {
 
 alias cd='cd_func'
 
+
+[[ -s "/Users/`whoami`/.gvm/scripts/gvm" ]] && source "/Users/`whoami`/.gvm/scripts/gvm"
