@@ -160,6 +160,8 @@ case "`uname`" in
 
         complete -C '/usr/local/aws/bin/aws_completer' aws
 
+        export GRADLE_OPTS="-Dorg.gradle.daemon=false -XX:MaxHeapSize=512m -Xmx1024m"
+
         # Makes a prompt that looks something like this:
         #   ~/home
         #   [ 317 ] luser@globule $
