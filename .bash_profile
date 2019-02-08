@@ -206,7 +206,7 @@ case "`uname`" in
             local workingDirectory="$BOLD_YELLOW\w"
             local currentGitBranch='`git branch 2> /dev/null | grep -e ^[*] | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\/ | sed -E s/[\(]master[\)]/\\\\\[\\\\\033[01\;31m\\\\\]\\(\(\(\ MASTER\ \\\\)\)\)/`'
             local historyBlock="$BOLD_RED[ $BOLD_LIGHT_GRAY\! $BOLD_RED]"
-            local timeBlock="$BOLD_DARK_GRAY\@"
+            local timeBlock="$BOLD_LIGHT_GRAY\@"
             local userAndHost="$BOLD_TEAL\u$BOLD_GREEN@$BOLD_BLUE\h"
             local promptTail="$BOLD_LIGHT_GRAY\$"
 
