@@ -147,12 +147,6 @@ case "`uname`" in
     # OS X
     Darwin*)
 
-        jhome () {
-         export JAVA_HOME=`/usr/libexec/java_home $@`
-         echo "JAVA_HOME:" ${JAVA_HOME}
-         java -version
-        }
-
         if [[ -z ${JAVA_HOME+x} ]]; then : ; else export PATH=$PATH:$JAVA_HOME/bin; fi
         if [[ -z ${M2_HOME+x} ]]; then : ; else export PATH=$PATH:$M2_HOME/bin; fi
 
@@ -162,19 +156,45 @@ case "`uname`" in
 
         export GRADLE_OPTS="-Dorg.gradle.daemon=false -XX:MaxHeapSize=512m -Xmx1024m"
 
+        # sets javahome
+        # tells you what it set it to
+        # prints the version
+        jhome () {
+         export JAVA_HOME=`/usr/libexec/java_home $@`
+         echo "JAVA_HOME:" ${JAVA_HOME}
+         java -version
+        }
+
+        # Renames the OSX box
+        # $1 = new hostname
+        renamehost () {
+            if [[ ! -z "$1" ]] ; then
+                sudo scutil --set HostName $1 && \
+                sudo scutil --set LocalHostName $1 && \
+                sudo scutil --set ComputerName $1 && \
+                dscacheutil -flushcache && \
+                echo "Host renamed. Reboot for it to take full effect."
+            else
+                echo "Need a hostname to give this host."
+                return 1
+            fi
+        }
+
         # Makes a prompt that looks something like this:
-        #   ~/home
-        #   [ 317 ] luser@globule $
+        #   ~/home 01:56 PM
+        #   [ 317 ] luser@host $
         #
-        # And like this if you're on a git branch:
-        #   ~/home (test)
-        #   [ 317 ] luser@globule $
+        # And like this if you're on a git branch (in below example, branch is "test"):
+        #
+        #   ~/home (test) 01:56 PM
+        #   [ 317 ] luser@host $
         #
         #   [ 317 ] <- is the command number of the current command
         #
         # The backslash-fest inline command below causes it to look like this if you're on master:
-        #   ~/home ((( MASTER )))
-        #   [ 318 ] luser@globule $
+        #   ~/home ((( MASTER ))) 01:56 PM
+        #   [ 318 ] luser@host $
+        #
         # The "((( MASTER )))" bit is also red, and bold.
         #
         function colorMyPrompt {
