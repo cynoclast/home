@@ -147,8 +147,12 @@ case "`uname`" in
     # OS X
     Darwin*)
 
+        export M2_HOME="/Users/`whoami`/.m2"
+
+        #Makes gradle be able to use maven settings.xml and reach artifactory
+        export SA_U="maven"
+
         if [[ -z ${JAVA_HOME+x} ]]; then : ; else export PATH=$PATH:$JAVA_HOME/bin; fi
-        if [[ -z ${M2_HOME+x} ]]; then : ; else export PATH=$PATH:$M2_HOME/bin; fi
 
         [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
 
