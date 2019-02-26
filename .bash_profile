@@ -52,8 +52,8 @@ alias rebash='source ~/.bash_profile'
 alias ssh='ssh -q'
 alias screen='screen -DR'
 alias dynago="cd /Users/`whoami`/apps/dynamo && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb"
-#alias gimmae='git branch -r | grep -v "\->" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done'
 alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do git branch --track ${remote#origin/} $remote; done'
+alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; done'
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
@@ -147,6 +147,8 @@ case "`uname`" in
     # OS X
     Darwin*)
 
+        alias gradle="./gradlew"
+
         export M2_HOME="/Users/`whoami`/.m2"
 
         #Makes gradle be able to use maven settings.xml and reach artifactory
@@ -159,6 +161,8 @@ case "`uname`" in
         complete -C '/usr/local/aws/bin/aws_completer' aws
 
         export GRADLE_OPTS="-Dorg.gradle.daemon=false -XX:MaxHeapSize=512m -Xmx1024m"
+
+        PATH=$PATH:~/apps:~/apps/squid_toolkit
 
         # sets javahome
         # tells you what it set it to
