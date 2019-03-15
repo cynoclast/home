@@ -148,6 +148,7 @@ case "`uname`" in
     Darwin*)
 
         alias gradle="./gradlew"
+        alias tm="java -classpath /Users/`whoami`/apps/time.jar com.cynoclast.time.Time"
 
         export M2_HOME="/Users/`whoami`/.m2"
 
