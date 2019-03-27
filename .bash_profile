@@ -58,8 +58,8 @@ alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurit
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
 # Use these to prevent host employer .gitconfig from contaminating personal repo
-alias ungit="ln -s ~/.cynoclast.gitconfig ~/.notgitconfig"
-alias regit="ln -s  ~/.nike.gitconfig ~/.gitconfig"
+alias ungit="ln -fs ~/.cynoclast.gitconfig ~/.gitconfig"
+alias regit="ln -fs  ~/.nike.gitconfig ~/.gitconfig"
 
 
 #  misspellings
