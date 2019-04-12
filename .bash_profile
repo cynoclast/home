@@ -57,9 +57,10 @@ alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; do
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
-# Use these to prevent host employer .gitconfig from contaminating personal repo
-alias ungit="ln -fs ~/.cynoclast.gitconfig ~/.gitconfig"
-alias regit="ln -fs  ~/.nike.gitconfig ~/.gitconfig"
+# git
+alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11}'"
+alias cyno="ln -fs ~/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
+alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
 
 
 #  misspellings
