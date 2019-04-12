@@ -59,7 +59,7 @@ alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
 # git
 alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11}'"
-alias cyno="ln -fs ~/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
+alias cyno="ln -fs ~/src/home/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
 alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
 
 
