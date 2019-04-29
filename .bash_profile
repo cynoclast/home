@@ -49,10 +49,9 @@ alias la='ls -haG'
 alias ll='ls -hlG'
 alias lla='ls -hlaG'
 alias rebash='source ~/.bash_profile'
-alias ssh='ssh -q'
 alias screen='screen -DR'
 alias dynago="cd /Users/`whoami`/apps/dynamo && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb"
-alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do git branch --track ${remote#origin/} $remote; done'
+alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do git branch --track ${remote#origin/} $remote 2>/dev/null; done'
 alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; done'
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
