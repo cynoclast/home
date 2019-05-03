@@ -8,6 +8,6 @@ There's no place like ~
 
 `git clone https://github.com/cynoclast/home.git`
 
-`ln -sf ~/src/home/.bash_profile ~/.bash_profile` # CLOBBER!
+`ln -sf ~/src/home/.bash_profile ~/.bash_profile # CLOBBER!`
 
 `source ~/.bash_profile`
