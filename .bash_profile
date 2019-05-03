@@ -161,7 +161,7 @@ case "`uname`" in
 
         complete -C '/usr/local/aws/bin/aws_completer' aws
 
-        export GRADLE_OPTS="-Dorg.gradle.daemon=false -XX:MaxHeapSize=512m -Xmx1024m"
+        export GRADLE_OPTS="-Dorg.gradle.daemon=true -XX:MaxHeapSize=512m -Xmx1024m"
 
         PATH=$PATH:~/apps:~/apps/squid_toolkit
 
