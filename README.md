@@ -10,4 +10,4 @@ There's no place like ~
 
 `ln -sf ~/src/home/.bash_profile ~/.bash_profile` # CLOBBER!
 
-`source .bash_profile`
+`source ~/.bash_profile`
