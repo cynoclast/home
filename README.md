@@ -4,10 +4,10 @@ There's no place like ~
 
 ## Howto
 
-`cd ~`
+`cd ~/src`
 
 `git clone https://github.com/cynoclast/home.git`
 
-`ln -sf home/.bash_profile .bash_profile`
+`ln -sf ~/src/home/.bash_profile ~/.bash_profile` # CLOBBER!
 
 `source .bash_profile`
