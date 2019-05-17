@@ -243,6 +243,9 @@ case "`uname`" in
             export PS1="$workingDirectory $BOLD_LIGHT_GRAY$currentGitBranch $timeBlock\n $historyBlock $userAndHost $promptTail$NO_COLOR "
         }
         colorMyPrompt
+
+        # cp /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash /usr/local/etc/bash_completion.d/
+        source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 esac
 
 #--------------------------------------------------
