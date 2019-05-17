@@ -57,9 +57,11 @@ alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurit
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 
 # git
-alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11}'"
+alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11 \" (whichgitconfig)\"}'"
 alias cyno="ln -fs ~/src/home/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
 alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
+
+alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
 
 #  misspellings
