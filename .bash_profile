@@ -63,7 +63,6 @@ alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
 
 alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
-
 #  misspellings
 alias exti="exit"
 alias mroe="less"
@@ -246,6 +245,8 @@ case "`uname`" in
         }
         colorMyPrompt
 
+        # cp <script location> /usr/local/etc/bash_completion.d/
+        # like:
         # cp /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash /usr/local/etc/bash_completion.d/
         source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 esac
