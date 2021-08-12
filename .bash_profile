@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -18,7 +18,8 @@ set -o ignoreeof
 set -o vi
 
 # turn on minor directory spellchecking for `cd`
-shopt -s cdspell
+# not supported in zshell
+#shopt -s cdspell
 
 # Don't put duplicate lines in the history.
 export HISTCONTROL=ignoredups
@@ -55,11 +56,12 @@ alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do 
 alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; done'
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
+alias sg="cd ~/src/storygize"
 
 # git
-alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11 \" (whichgitconfig)\"}'"
-alias cyno="ln -fs ~/src/home/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
-alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
+#alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11 \" (whichgitconfig)\"}'"
+#alias cyno="ln -fs ~/src/home/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
+#alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
 
 alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
@@ -143,7 +145,7 @@ case "`uname`" in
             ;;
 
       esac
-  ;;
+    ;;
 
     # OS X
     Darwin*)
@@ -160,17 +162,25 @@ case "`uname`" in
 
         [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
 
-        complete -C '/usr/local/aws/bin/aws_completer' aws
+        # complete -C '/usr/local/aws/bin/aws_completer' aws
+        # ^ not supported in zshell
 
         export GRADLE_OPTS="-Dorg.gradle.daemon=true -XX:MaxHeapSize=512m -Xmx1024m"
 
-        PATH=$PATH:~/apps:~/apps/squid_toolkit
+        PATH=$PATH:/Users/tkirk/src/storygize/bin
 
-        # sets javahome
-        # tells you what it set it to
-        # prints the version
+        export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024M -XX:+CMSClassUnloadingEnabled"
+
+        #nvm shell completion
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+        [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+        export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home"
+
+        # tells you what it is set to and prints the version
         jhome () {
-         export JAVA_HOME=`/usr/libexec/java_home $@`
+         #  export JAVA_HOME=`/usr/libexec/java_home $@` # for some reason this points to /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
          echo "JAVA_HOME:" ${JAVA_HOME}
          java -version
         }
@@ -243,12 +253,19 @@ case "`uname`" in
             # BOLD_LIGHT_GRAY is overridden in the above currentGitBranch command above when on master
             export PS1="$workingDirectory $BOLD_LIGHT_GRAY$currentGitBranch $timeBlock\n $historyBlock $userAndHost $promptTail$NO_COLOR "
         }
-        colorMyPrompt
+        # colorMyPrompt
 
         # cp <script location> /usr/local/etc/bash_completion.d/
         # like:
         # cp /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash /usr/local/etc/bash_completion.d/
-        source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+        autoload -Uz compinit && compinit
+
+        [[ -s "/Users/`whoami`/.gvm/scripts/gvm" ]] && source "/Users/`whoami`/.gvm/scripts/gvm"
+
+        #if [[ -f \`brew --prefix\`/etc/bash_completion ]]; then
+        #    . \`brew --prefix\`/etc/bash_completion
+        #fi
+    ;;
 esac
 
 #--------------------------------------------------
@@ -395,7 +412,7 @@ cd_func () {
   popd -n +11 2>/dev/null 1>/dev/null
 
   #
-  # Remove any other occurence of this dir, skipping the top of the stack
+  # Remove any other occurrence of this dir, skipping the top of the stack
   for ((cnt=1; cnt <= 10; cnt++)); do
     x2=$(dirs +${cnt} 2>/dev/null)
     [[ $? -ne 0 ]] && return 0
@@ -411,4 +428,4 @@ cd_func () {
 
 alias cd='cd_func'
 
-[[ -s "/Users/`whoami`/.gvm/scripts/gvm" ]] && source "/Users/`whoami`/.gvm/scripts/gvm"
+
