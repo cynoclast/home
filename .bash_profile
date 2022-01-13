@@ -56,7 +56,6 @@ alias gimmae='for remote in `git branch -r | grep -v HEAD | grep -v master`; do 
 alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; done'
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
-alias sg="cd ~/src/storygize"
 
 # git
 #alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11 \" (whichgitconfig)\"}'"
@@ -166,9 +165,6 @@ case "`uname`" in
         # ^ not supported in zshell
 
         export GRADLE_OPTS="-Dorg.gradle.daemon=true -XX:MaxHeapSize=512m -Xmx1024m"
-
-        PATH=$PATH:/Users/tkirk/src/storygize/bin
-
         export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024M -XX:+CMSClassUnloadingEnabled"
 
         #nvm shell completion
