@@ -150,12 +150,9 @@ case "`uname`" in
     Darwin*)
 
         alias gradle="./gradlew"
-        alias tm="java -classpath /Users/`whoami`/apps/time.jar com.cynoclast.time.Time"
+        alias tm="java -classpath /Users/`whoami`/bin/time-1.0.jar com.cynoclast.time.Time"
 
         export M2_HOME="/Users/`whoami`/.m2"
-
-        #Makes gradle be able to use maven settings.xml and reach artifactory
-        export SA_U="maven"
 
         if [[ -z ${JAVA_HOME+x} ]]; then : ; else export PATH=$PATH:$JAVA_HOME/bin; fi
 
@@ -172,11 +169,12 @@ case "`uname`" in
         [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
         [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-        export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home"
+        # hardcode
+        # export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home"
 
-        # tells you what it is set to and prints the version
+        # tells you what JAVA_HOME is set to and prints the java version
         jhome () {
-         #  export JAVA_HOME=`/usr/libexec/java_home $@` # for some reason this points to /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
+         export JAVA_HOME=`/usr/libexec/java_home $@` # for some reason this points to /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home"
          echo "JAVA_HOME:" ${JAVA_HOME}
          java -version
         }
