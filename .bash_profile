@@ -156,7 +156,7 @@ case "`uname`" in
 
         if [[ -z ${JAVA_HOME+x} ]]; then : ; else export PATH=$PATH:$JAVA_HOME/bin; fi
 
-        [[ "`whoami`" != "root" ]]; export PATH="$PATH:/home/`whoami`/bin"
+        [[ "`whoami`" != "root" ]]; export PATH="$PATH:/Users/`whoami`/bin"
 
         # complete -C '/usr/local/aws/bin/aws_completer' aws
         # ^ not supported in zshell
