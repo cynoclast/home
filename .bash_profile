@@ -422,4 +422,6 @@ cd_func () {
 
 alias cd='cd_func'
 
+source ~/.ST.stuff.sh
+
 
