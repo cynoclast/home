@@ -6,7 +6,7 @@ There's no place like ~
 
 ### Generate key for git via SSH ([enter][enter] for empty passphrase):
 
-    ssh-keygen -t ed25519 -C "cynoclast@gmail.com"
+    ssh-keygen -t ed25519 -C "email@example.com"
 
 ### Copy to clipboard
     
