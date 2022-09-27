@@ -11,6 +11,8 @@ case $- in
     ;;
 esac
 
+source ~/.stuff.sh
+
 # Don't use ^D to exit
 set -o ignoreeof
 
@@ -422,6 +424,4 @@ cd_func () {
 
 alias cd='cd_func'
 
-source ~/.ST.stuff.sh
-
-
+source ~/.eof.stuff.sh
