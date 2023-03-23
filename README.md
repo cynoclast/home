@@ -3,7 +3,7 @@ There's no place like ~
 
 ## Howto
 
-### Generate key for git via SSH ([enter][enter] for empty passphrase):
+### Generate key for git via SSH (\[enter]\[enter] for empty passphrase):
 ```
 ssh-keygen -t ed25519 -C "email@example.com"
 ```
