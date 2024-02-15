@@ -60,11 +60,6 @@ alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurit
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 alias src="cd /Users/`whoami`/src"
 
-# git
-#alias whichgitconfig="ls -la ~/.gitconfig | awk -F\  '{print \$11 \" (whichgitconfig)\"}'"
-#alias cyno="ln -fs ~/src/home/.cynoclast.gitconfig ~/.gitconfig; whichgitconfig"
-#alias nike="ln -fs ~/.nike.gitconfig ~/.gitconfig; whichgitconfig"
-
 alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
 #  misspellings
@@ -322,7 +317,6 @@ function setprompt {
 #--------------------------------------------------
 #    Extracts most files, mostly
 #--------------------------------------------------
-
 extract () {
   if [ -f $1 ] ; then
     case $1 in
@@ -346,7 +340,6 @@ extract () {
 #--------------------------------------------------
 #    Greps ps -e for you
 #--------------------------------------------------
-
 psg() {
   if [ ! -z "$1" ] ; then
     ps aux | grep -i "$1" | grep -v grep
@@ -358,13 +351,22 @@ psg() {
 #--------------------------------------------------
 #    Greps history
 #--------------------------------------------------
-
 histg() {
   if [ ! -z "$1" ] ; then
     history | grep "$1" | grep -v histg
   else
     echo "Need a command to grep history for"
   fi
+}
+
+#--------------------------------------------------
+#    Kills Zoom
+#--------------------------------------------------
+killzoom() {
+  for pid in $(pgrep -f zoom.us);
+  do
+    echo $pid | xargs kill
+  done
 }
 
 # This function defines a 'cd' replacement function capable of keeping,
@@ -424,5 +426,12 @@ cd_func () {
 }
 
 alias cd='cd_func'
+
+eval "$(pyenv init -)"
+
+# Setting PATH for Python 3.11
+# The original version is saved in .zprofile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
+export PATH
 
 source ~/.eof.stuff.sh
