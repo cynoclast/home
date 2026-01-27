@@ -59,6 +59,8 @@ alias GIMMAE='for repo in `ls -d ./*/`; do cd $repo; git pull; gimmae; cd ..; do
 alias foff='sudo /opt/cisco/anyconnect/bin/acwebsecagent -disablesvc -websecurity'
 alias splle="vi /Users/`whoami`/Library/Spelling/LocalDictionary"
 alias src="cd /Users/`whoami`/src"
+alias python="python3"
+alias pip="pip3"
 
 alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
@@ -427,11 +429,11 @@ cd_func () {
 
 alias cd='cd_func'
 
-eval "$(pyenv init -)"
+source ~/.eof.stuff.sh
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Setting PATH for Python 3.11
 # The original version is saved in .zprofile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
 export PATH
-
-source ~/.eof.stuff.sh
