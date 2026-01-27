@@ -62,7 +62,7 @@ alias src="cd /Users/`whoami`/src"
 alias python="python3"
 alias pip="pip3"
 
-alias amendoclast='git commit --amend --author="cynoclast <cynoclast@gmail.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
+alias amendoclast='git commit --amend --author="cynoclast <cynoclast@pm.com>" && echo && echo && echo "using the force!" && echo && echo && git push --force'
 
 #  misspellings
 alias exti="exit"
