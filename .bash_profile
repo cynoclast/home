@@ -43,7 +43,7 @@ export HISTSIZE=100000
 #                      Aliases
 ##############################################################
 alias ~="cd /Users/`whoami`"
-alias ..='cd ..' >/dev/null
+alias ..='cd ..' >/dev/null # the most useful thing in this entire file
 alias ....='cd ../..'
 alias ......='cd ../../..'
 alias ........='cd ../../../..'
