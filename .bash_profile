@@ -429,11 +429,39 @@ cd_func () {
 
 alias cd='cd_func'
 
-source ~/.eof.stuff.sh
-
+#--------------------------------------------------
+#    brew
+#--------------------------------------------------
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Setting PATH for Python 3.11
-# The original version is saved in .zprofile.pysave
+#--------------------------------------------------
+#    ZSH & themery
+#--------------------------------------------------
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="xiong-chiamiov-plus"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+#--------------------------------------------------
+#    Python
+#--------------------------------------------------
 PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
 export PATH
+
+#--------------------------------------------------
+#    mise
+#--------------------------------------------------
+eval "$(/Users/trampas/.local/bin/mise activate zsh)"
+
+#--------------------------------------------------
+#    EOF shennanigans
+#--------------------------------------------------
+source ~/.eof.stuff.sh
