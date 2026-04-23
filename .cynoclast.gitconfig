@@ -1,5 +1,5 @@
 [user]
-	email = cynoclat@gmail.com
+	email = cynoclat@protonmail.com
 	name = cynoclast
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
