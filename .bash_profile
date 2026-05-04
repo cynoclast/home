@@ -459,7 +459,7 @@ export PATH
 #--------------------------------------------------
 #    mise
 #--------------------------------------------------
-eval "$(/Users/trampas/.local/bin/mise activate zsh)"
+eval "$(/Users/`whoami`/.local/bin/mise activate zsh)"
 
 #--------------------------------------------------
 #    EOF shennanigans
